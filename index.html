@@ -81,7 +81,6 @@
 <script type="importmap">
 {
   "imports": {
-    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
     "react/": "https://esm.sh/react@^19.2.3/",
     "react": "https://esm.sh/react@^19.2.3"
   }
@@ -89,6 +88,8 @@
 </script>
 </head>
 <body class="bg-gray-50/30 text-black overflow-x-hidden">
+    <!-- Elemento root para compatibilidade, mas a aplicação roda em Vanilla no container abaixo -->
+    <div id="root"></div>
 
     <div class="max-w-[500px] mx-auto min-h-screen relative flex flex-col items-center">
         <!-- Background Layer -->
@@ -182,7 +183,7 @@
     </div>
 
     <script>
-        // Dados da aplicação
+        // Dados da aplicação (Versão Vanilla para performance e simplicidade)
         const ACTION_LINKS = [
             {
                 id: '1',
@@ -235,7 +236,7 @@
         const yearEl = document.getElementById('year');
 
         // Inicialização
-        yearEl.textContent = new Date().getFullYear();
+        if(yearEl) yearEl.textContent = new Date().getFullYear();
 
         // Função de renderização
         function renderLinks(query = '') {
@@ -291,19 +292,21 @@
         }
 
         // Lógica de Busca
-        searchInput.addEventListener('input', (e) => {
-            const val = e.target.value;
-            renderLinks(val);
-            clearBtn.classList.toggle('hidden', val.length === 0);
-        });
+        if(searchInput) {
+            searchInput.addEventListener('input', (e) => {
+                const val = e.target.value;
+                renderLinks(val);
+                if(clearBtn) clearBtn.classList.toggle('hidden', val.length === 0);
+            });
+        }
 
         function clearSearchInput() {
-            searchInput.value = '';
-            clearBtn.classList.add('hidden');
+            if(searchInput) searchInput.value = '';
+            if(clearBtn) clearBtn.classList.add('hidden');
             renderLinks();
         }
 
-        clearBtn.addEventListener('click', clearSearchInput);
+        if(clearBtn) clearBtn.addEventListener('click', clearSearchInput);
 
         // Compartilhamento
         async function handleShare() {

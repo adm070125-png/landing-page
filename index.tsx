@@ -1,16 +1,6 @@
 
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import App from './App';
-
-const rootElement = document.getElementById('root');
-if (!rootElement) {
-  throw new Error("Could not find root element to mount to");
-}
-
-const root = ReactDOM.createRoot(rootElement);
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
+/**
+ * Aplicação convertida para Vanilla HTML/JS conforme solicitado.
+ * O código principal reside agora inteiramente no index.html para performance máxima.
+ */
+console.log('GRUPO ETHERNOS - Landing Page carregada com sucesso.');
